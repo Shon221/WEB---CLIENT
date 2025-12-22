@@ -1,0 +1,112 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Search</title>
+
+    <!-- Bootstrap -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+
+<body class="bg-light">
+
+    <!-- Top Bar -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <div class="container">
+            <a class="navbar-brand fw-semibold" href="#">MyTube</a>
+
+            <div class="ms-auto d-flex align-items-center gap-3">
+                <div class="d-flex align-items-center gap-2 text-white">
+                    <img id="userImg" src="" alt="User" class="rounded-circle"
+                        style="width:36px;height:36px;object-fit:cover;">
+                    <span id="userName" class="small"></span>
+                </div>
+                <a class="btn btn-outline-light btn-sm" href="playlists.html">Playlists</a>
+                <button id="btnLogout" class="btn btn-warning btn-sm">Logout</button>
+            </div>
+        </div>
+    </nav>
+
+    <main class="container my-4">
+
+        <!-- Welcome -->
+        <div class="alert alert-primary d-flex align-items-center justify-content-between" role="alert">
+            <div class="d-flex align-items-center gap-3">
+                <div>
+                    <div class="fw-bold">Welcome!</div>
+                    <div class="small text-muted">Search and save videos to your playlists</div>
+                </div>
+            </div>
+            <div class="small">
+                Shareable URL is synced with your search query.
+            </div>
+        </div>
+
+        <!-- Search Bar -->
+        <div class="card shadow-sm">
+            <div class="card-body">
+                <form id="searchForm" class="row g-2 align-items-center">
+                    <div class="col-12 col-md-9">
+                        <input id="qInput" type="text" class="form-control" placeholder="Type a song or artist..." />
+                    </div>
+                    <div class="col-12 col-md-3 d-grid">
+                        <button id="btnSearch" class="btn btn-primary" type="submit">
+                            Search
+                        </button>
+                    </div>
+                </form>
+                <div class="mt-2 small text-muted">
+                    Tip: You can send a link like <span class="fw-semibold">search.html?q=eminem</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Status -->
+        <div id="statusBox" class="mt-3"></div>
+
+        <!-- Results -->
+        <div class="mt-3">
+            <div class="d-flex align-items-center justify-content-between">
+                <h5 class="mb-2">Results</h5>
+                <span id="resultsCount" class="badge text-bg-secondary"></span>
+            </div>
+
+            <div id="resultsGrid" class="row g-3"></div>
+        </div>
+    </main>
+
+    <!-- Player Modal -->
+    <div class="modal fade" id="playerModal" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-lg modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 id="playerTitle" class="modal-title">Now Playing</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+
+                <div class="modal-body">
+                    <div class="ratio ratio-16x9">
+                        <iframe id="playerFrame" src="" title="YouTube player"
+                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                            allowfullscreen></iframe>
+                    </div>
+                    <div id="playerMeta" class="mt-2 small text-muted"></div>
+                </div>
+
+                <div class="modal-footer">
+                    <button class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <a id="openOnYouTube" class="btn btn-outline-primary" href="#" target="_blank" rel="noreferrer">Open
+                        on YouTube</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="search.js"></script>
+</body>
+
+</html>
