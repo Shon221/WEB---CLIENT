@@ -16,23 +16,37 @@ function logout() {
     window.location.href = "login.html";
 }
 
-function getUserPlaylistsKey(username) {
-    return `playlists_${username}`;
+// --- SERVER API HELPERS (Updated) ---
+
+async function loadUserPlaylists(username) {
+    try {
+        const res = await fetch(`/api/playlists/${username}`);
+        if (res.ok) {
+            return await res.json();
+        }
+        return [];
+    } catch (e) {
+        console.error("Failed to load playlists from server", e);
+        return [];
+    }
 }
 
-function loadUserPlaylists(username) {
-    const raw = localStorage.getItem(getUserPlaylistsKey(username));
-    // Structure: [{ id: timestamp, name: string, videos: [ { videoId, title, thumbnail, channelTitle, publishedAt } ] }]
-    return raw ? JSON.parse(raw) : [];
+async function saveUserPlaylists(username, playlists) {
+    try {
+        await fetch('/api/playlists', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ username, playlists })
+        });
+    } catch (e) {
+        console.error("Failed to save playlists to server", e);
+    }
 }
 
-function saveUserPlaylists(username, playlists) {
-    localStorage.setItem(getUserPlaylistsKey(username), JSON.stringify(playlists));
-}
-
-function isVideoSavedInAnyPlaylist(username, videoId) {
-    const pls = loadUserPlaylists(username);
-    return pls.some(p => (p.videos || []).some(v => v.videoId === videoId));
+// Updated to receive 'playlists' array as argument instead of loading it synchronously
+function isVideoSavedInAnyPlaylist(username, videoId, playlists) {
+    if (!playlists || !Array.isArray(playlists)) return false;
+    return playlists.some(p => (p.videos || []).some(v => v.videoId === videoId));
 }
 
 // ===============================
@@ -150,7 +164,8 @@ function setStatus(type, msg) {
     box.innerHTML = msg ? `<div class="alert alert-${type}">${msg}</div>` : "";
 }
 
-function renderResults(items, detailsMap, currentUser) {
+// Updated: Accepts userPlaylists to check 'saved' status efficiently
+function renderResults(items, detailsMap, currentUser, userPlaylists) {
     const grid = document.getElementById("resultsGrid");
     const count = document.getElementById("resultsCount");
 
@@ -171,7 +186,10 @@ function renderResults(items, detailsMap, currentUser) {
         const published = snip.publishedAt ? new Date(snip.publishedAt).toLocaleDateString() : "";
 
         const details = detailsMap[videoId] || {};
-        const saved = isVideoSavedInAnyPlaylist(currentUser.username, videoId);
+
+        // Check using the passed playlists array
+        const saved = isVideoSavedInAnyPlaylist(currentUser.username, videoId, userPlaylists);
+
         const duration = details.duration || "";
         // Escape helper
         const safeTitle = title.replace(/"/g, "&quot;");
@@ -215,6 +233,7 @@ function renderResults(items, detailsMap, currentUser) {
                                 data-video-thumb="${safeThumb}"
                                 data-video-channel="${safeChannel}"
                                 data-video-pub="${published}"
+                                data-video-duration="${duration}"
                                 ${saved ? 'disabled' : ''}
                                 onclick="openAddToPlaylistModal(this)">
                             ${saved ? 'Saved' : '<i class="bi bi-plus-lg"></i> Add'}
@@ -237,13 +256,14 @@ function renderResults(items, detailsMap, currentUser) {
 // ===============================
 function openPlayer(videoId, title) {
     document.getElementById("playerTitle").textContent = title;
-    document.getElementById("playerFrame").src = `https://www.youtube.com/embed/${videoId}?autoplay=1`;
+    // Added origin to help with embedding permissions
+    document.getElementById("playerFrame").src = `https://www.youtube.com/embed/${videoId}?autoplay=1&origin=${window.location.origin}`;
     document.getElementById("openOnYouTube").href = `https://www.youtube.com/watch?v=${videoId}`;
     document.getElementById("playerMeta").textContent = ""; // Reset meta
     playerModal.show();
 }
 
-function openAddToPlaylistModal(btnElement) {
+async function openAddToPlaylistModal(btnElement) {
     const user = getCurrentUser();
 
     // Store video data in global var for later use
@@ -256,8 +276,9 @@ function openAddToPlaylistModal(btnElement) {
         duration: btnElement.dataset.videoDuration || ""
     };
 
-    // Populate dropdown
-    const playlists = loadUserPlaylists(user.username);
+    // Load playlists from server
+    const playlists = await loadUserPlaylists(user.username);
+
     const select = document.getElementById("playlistSelect");
     const optExisting = document.getElementById("optExisting");
     const optNew = document.getElementById("optNew");
@@ -291,11 +312,12 @@ function openAddToPlaylistModal(btnElement) {
     addToPlaylistModal.show();
 }
 
-function confirmAddToPlaylist() {
+async function confirmAddToPlaylist() {
     if (!currentVideoToAdd) return;
 
     const user = getCurrentUser();
-    const playlists = loadUserPlaylists(user.username);
+    // Load fresh data before saving
+    const playlists = await loadUserPlaylists(user.username);
 
     const isNew = document.getElementById("optNew").checked;
     let targetPlaylistIndex = -1;
@@ -321,17 +343,18 @@ function confirmAddToPlaylist() {
 
     // Add video to the selected playlist
     if (targetPlaylistIndex > -1 && playlists[targetPlaylistIndex]) {
-        // Check duplicate inside this specific playlist (optional logic, but good practice)
         const pl = playlists[targetPlaylistIndex];
         if (!pl.videos) pl.videos = [];
 
         if (pl.videos.some(v => v.videoId === currentVideoToAdd.videoId)) {
             alert("Video already in this playlist.");
-            return; // Don't close modal if duplicate? or just close.
+            return;
         }
 
         pl.videos.push(currentVideoToAdd);
-        saveUserPlaylists(user.username, playlists);
+
+        // Save to server
+        await saveUserPlaylists(user.username, playlists);
 
         // Success UI updates
         addToPlaylistModal.hide();
@@ -428,6 +451,14 @@ async function runSearch(query, user) {
     setStatus("", ""); // Clear status
     const grid = document.getElementById("resultsGrid");
 
+    // Fetch playlists once to check what is saved
+    let userPlaylists = [];
+    try {
+        userPlaylists = await loadUserPlaylists(user.username);
+    } catch (e) {
+        console.warn("Could not load playlists for search status");
+    }
+
     // A) Is it a Direct Link?
     if (isYouTubeUrl(query)) {
         setStatus("info", "Detected YouTube link. Fetching details...");
@@ -454,7 +485,7 @@ async function runSearch(query, user) {
                 console.warn("oEmbed failed, using defaults");
             }
 
-            renderResults([item], {}, user);
+            renderResults([item], {}, user, userPlaylists);
             setStatus("success", "Video loaded from link.");
         } catch (err) {
             setStatus("danger", "Error loading video from link.");
@@ -471,7 +502,7 @@ async function runSearch(query, user) {
         const ids = items.map(i => i.id.videoId).filter(Boolean);
         const details = await getVideoDetails(ids);
 
-        renderResults(items, details, user);
+        renderResults(items, details, user, userPlaylists);
         setStatus("", ""); // Clear status on success
     } catch (err) {
         console.error(err);

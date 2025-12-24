@@ -1,0 +1,191 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>My Playlists</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+</head>
+
+<body class="bg-light">
+
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark sticky-top">
+        <div class="container-fluid">
+            <a class="navbar-brand fw-semibold" href="search.html">YouTube Favorites</a>
+
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <div class="d-flex align-items-center gap-3 ms-auto">
+                    <a class="btn btn-outline-light btn-sm" href="search.html">Search</a>
+                    <a class="btn btn-outline-light btn-sm" href="playlists.html">Playlists</a>
+
+                    <div class="d-flex align-items-center gap-2 text-white">
+                        <img id="navUserImg" src="" alt="User" width="32" height="32" class="rounded-circle border"
+                            style="object-fit:cover;">
+                        <span id="navUserName" class="small"></span>
+                    </div>
+
+                    <button id="btnLogout" class="btn btn-warning btn-sm">Logout</button>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <main class="container-fluid py-3">
+        <div class="row g-3">
+            <aside class="col-12 col-lg-3">
+                <div class="card shadow-sm h-100">
+                    <div class="card-body d-flex flex-column">
+                        <div class="d-flex align-items-center justify-content-between mb-3">
+                            <h5 class="card-title mb-0">My Library</h5>
+                            <button class="btn btn-primary btn-sm" data-bs-toggle="modal"
+                                data-bs-target="#createPlaylistModal">
+                                <i class="bi bi-plus-lg"></i> New
+                            </button>
+                        </div>
+
+                        <div class="list-group flex-grow-1 mb-3" id="playlistsList"
+                            style="max-height: 400px; overflow-y: auto;">
+                        </div>
+
+                        <div id="sidebarEmpty" class="alert alert-secondary py-2 small d-none text-center">
+                            No playlists yet.
+                        </div>
+
+                        <div class="mt-auto border-top pt-3">
+                            <label class="form-label small fw-bold text-muted mb-1">
+                                <i class="bi bi-music-note-beamed"></i> Upload MP3
+                            </label>
+                            <div class="input-group input-group-sm">
+                                <input type="file" class="form-control" id="mp3Input" accept="audio/mp3">
+                                <button class="btn btn-secondary" type="button" id="btnUploadMp3">Upload</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </aside>
+
+            <section class="col-12 col-lg-9">
+                <div class="card shadow-sm min-vh-100">
+                    <div class="card-body">
+
+                        <div
+                            class="d-flex flex-column flex-md-row align-items-md-center justify-content-between gap-2 mb-3">
+                            <div>
+                                <h4 id="activePlaylistTitle" class="mb-0 fw-bold">Select a playlist</h4>
+                                <p id="activePlaylistMeta" class="text-muted small mb-0"></p>
+                            </div>
+
+                            <div class="d-flex gap-2">
+                                <button id="btnDeletePlaylist" class="btn btn-outline-danger btn-sm" disabled>
+                                    <i class="bi bi-trash3"></i> Delete Playlist
+                                </button>
+                            </div>
+                        </div>
+
+                        <hr />
+
+                        <div id="noSelectionBox" class="alert alert-info d-none text-center py-5">
+                            <i class="bi bi-arrow-left-circle fs-1"></i>
+                            <div class="mt-2">Choose a playlist from the left sidebar to start.</div>
+                        </div>
+
+                        <div id="controlsRow" class="row g-2 align-items-center d-none mb-3">
+                            <div class="col-12 col-md-6">
+                                <div class="input-group">
+                                    <span class="input-group-text bg-white"><i class="bi bi-search"></i></span>
+                                    <input id="filterInput" type="text" class="form-control"
+                                        placeholder="Filter videos..." />
+                                    <button id="btnClearFilter" class="btn btn-outline-secondary"
+                                        type="button">Clear</button>
+                                </div>
+                            </div>
+
+                            <div class="col-12 col-md-6">
+                                <div class="d-flex gap-2 justify-content-md-end">
+                                    <select id="sortSelect" class="form-select w-auto">
+                                        <option value="az">Sort: A → Z</option>
+                                        <option value="newest">Sort: Newest</option>
+                                        <option value="oldest">Sort: Oldest</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div id="videosContainer" class="row g-3"></div>
+
+                        <div id="emptyPlaylistBox" class="alert alert-secondary mt-5 text-center d-none">
+                            <div class="fs-4 mb-2">😴</div>
+                            <div>This playlist is empty.</div>
+                            <div class="small mt-1">Go to <a href="search.html">Search</a> or upload an MP3.</div>
+                        </div>
+
+                    </div>
+                </div>
+            </section>
+        </div>
+    </main>
+
+    <div class="modal fade" id="createPlaylistModal" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <form id="createPlaylistForm" class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Create New Playlist</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+
+                <div class="modal-body">
+                    <label class="form-label">Name</label>
+                    <input id="newPlaylistName" class="form-control" maxlength="40" placeholder="e.g., Gym Mix"
+                        required />
+                    <div id="createPlaylistError" class="alert alert-danger mt-3 d-none"></div>
+                </div>
+
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Cancel</button>
+                    <button class="btn btn-primary" type="submit">Create</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <div class="modal fade" id="playerModal" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-lg modal-dialog-centered">
+            <div class="modal-content bg-black text-white">
+                <div class="modal-header border-secondary">
+                    <h5 id="playerModalTitle" class="modal-title text-truncate">Player</h5>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"
+                        aria-label="Close"></button>
+                </div>
+
+                <div class="modal-body p-0 text-center d-flex align-items-center justify-content-center"
+                    style="min-height: 400px; background: #000;">
+
+                    <div class="ratio ratio-16x9 w-100" id="youtubeContainer">
+                        <iframe id="playerFrame" src="" title="YouTube player"
+                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                            allowfullscreen></iframe>
+                    </div>
+
+                    <div id="audioContainer" class="d-none w-100 py-5">
+                        <div class="mb-4">
+                            <i class="bi bi-music-note-beamed" style="font-size: 5rem; color: #555;"></i>
+                        </div>
+                        <audio id="audioPlayer" controls class="w-75"></audio>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="playlists.js"></script>
+</body>
+
+</html>

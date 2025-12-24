@@ -1,0 +1,68 @@
+[
+  {
+    "username": "as",
+    "playlists": [
+      {
+        "id": "pl_mjjypbptxrt8de",
+        "name": "mp3",
+        "createdAt": 1766577620369,
+        "videos": [
+          {
+            "videoId": "local_1766577627400",
+            "title": "2Pac - 2 Of Amerikaz Most Wanted (feat. Snoop Dogg)",
+            "thumbnail": "",
+            "duration": "MP3",
+            "isLocal": true,
+            "filePath": "/uploads/1766577627351-908254793-2Pac - 2 Of Amerikaz Most Wanted (feat. Snoop Dogg).mp3",
+            "addedAt": 1766577627400
+          }
+        ]
+      },
+      {
+        "id": "pl_mjjyafrsw4ud4d",
+        "name": "pop",
+        "createdAt": 1766576925784,
+        "videos": [
+          {
+            "videoId": "qKOMEWKrvb4",
+            "title": "Benson Boone - Beautiful Things (Lyrics)",
+            "thumbnail": "https://i.ytimg.com/vi/qKOMEWKrvb4/hqdefault.jpg",
+            "channelTitle": "7clouds Rock",
+            "publishedAt": "",
+            "duration": ""
+          }
+        ]
+      },
+      {
+        "id": 1766576845601,
+        "name": "new",
+        "createdAt": "2025-12-24T11:47:25.601Z",
+        "videos": [
+          {
+            "videoId": "dN0yR6zuzq4",
+            "title": "TEMO, SHIRI, BLIZKEY - AZAMAT (Lyric Video)",
+            "thumbnail": "https://i.ytimg.com/vi/dN0yR6zuzq4/hqdefault.jpg",
+            "channelTitle": "BLIZKEY",
+            "publishedAt": "",
+            "duration": ""
+          }
+        ]
+      },
+      {
+        "id": 1766577606363,
+        "name": "afro house",
+        "createdAt": "2025-12-24T12:00:06.363Z",
+        "videos": [
+          {
+            "videoId": "3G8f9miKY2A",
+            "title": "SUMMER AFRO HOUSE Sunset Mix 2025 (Avicii, The Weeknd, Coldplay, Diplo) - Summer Vibes #34",
+            "thumbnail": "https://i.ytimg.com/vi/3G8f9miKY2A/hqdefault.jpg",
+            "channelTitle": "Afro Sounds",
+            "publishedAt": "",
+            "duration": ""
+          }
+        ]
+      }
+    ]
+  }
+]
