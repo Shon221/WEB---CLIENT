@@ -1,8 +1,7 @@
 // ===============================
 // 1) CONFIG
 // ===============================
-const YT_API_KEY = "PUT_YOUR_YOUTUBE_API_KEY_HERE";
-
+const YT_API_KEY = config.YT_API_KEY;
 // ===============================
 // 2) STORAGE & AUTH HELPERS
 // ===============================
@@ -402,7 +401,7 @@ document.addEventListener("DOMContentLoaded", async () => {
 
     // 2. Setup Header
     document.getElementById("userName").textContent = user.firstName || user.username;
-    document.getElementById("userImg").src = user.imgUrl || "https://via.placeholder.com/36";
+    document.getElementById("userImg").src = user.imageUrl || "https://via.placeholder.com/36";
     document.getElementById("welcomeTitle").textContent = `Welcome, ${user.firstName || user.username}!`;
 
     document.getElementById("btnLogout").addEventListener("click", logout);

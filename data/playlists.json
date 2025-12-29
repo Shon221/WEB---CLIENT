@@ -64,5 +64,155 @@
         ]
       }
     ]
+  },
+  {
+    "username": "s",
+    "playlists": [
+      {
+        "id": "pl_mjrfudbxztrsxb",
+        "name": "mp3",
+        "createdAt": 1767029672445,
+        "videos": [
+          {
+            "videoId": "local_1767029677808",
+            "title": "2Pac feat. Dr. Dre - California love",
+            "thumbnail": "",
+            "duration": "MP3",
+            "isLocal": true,
+            "filePath": "/uploads/1767029677771-473693612-2Pac feat. Dr. Dre - California love.mp3",
+            "addedAt": 1767029677808
+          }
+        ]
+      },
+      {
+        "id": "pl_mjpiyuhpyt6a8u",
+        "name": "pop",
+        "createdAt": 1766913987805,
+        "videos": [
+          {
+            "videoId": "dN0yR6zuzq4",
+            "title": "TEMO, SHIRI, BLIZKEY - AZAMAT (Lyric Video)",
+            "thumbnail": "https://i.ytimg.com/vi/dN0yR6zuzq4/hqdefault.jpg",
+            "channelTitle": "BLIZKEY",
+            "publishedAt": "",
+            "duration": ""
+          },
+          {
+            "videoId": "bWZocyszivk",
+            "title": "Afro House Mix 2025 | The Best of Afro House 2025 by OSOCITY",
+            "thumbnail": "https://i.ytimg.com/vi/bWZocyszivk/mqdefault.jpg",
+            "channelTitle": "OSOCITYNATION",
+            "publishedAt": "25.1.2025",
+            "duration": "1:01:31"
+          }
+        ]
+      },
+      {
+        "id": 1767029416621,
+        "name": "new",
+        "createdAt": "2025-12-29T17:30:16.621Z",
+        "videos": [
+          {
+            "videoId": "f9OSBmPZOoQ",
+            "title": "SUMMER AFRO HOUSE Sunset Mix (Adam Port, Avicii, The Weeknd, Coldplay, Diplo) - Summer Vibes Mix #41",
+            "thumbnail": "https://i.ytimg.com/vi/f9OSBmPZOoQ/mqdefault.jpg",
+            "channelTitle": "Afro King",
+            "publishedAt": "31.7.2025",
+            "duration": "2:21:01"
+          },
+          {
+            "videoId": "0AT-PGwZI3w",
+            "title": "AFRO HOUSE MIX WITH: Keinemusik, HUGEL, Adam Port, Moojo / SUNSET DJ SET 2025",
+            "thumbnail": "https://i.ytimg.com/vi/0AT-PGwZI3w/mqdefault.jpg",
+            "channelTitle": "Dennis Gold",
+            "publishedAt": "11.2.2025",
+            "duration": "1:54:04"
+          }
+        ]
+      },
+      {
+        "id": 1767029656208,
+        "name": "afro",
+        "createdAt": "2025-12-29T17:34:16.208Z",
+        "videos": [
+          {
+            "videoId": "ALIZCO-5BIw",
+            "title": "Afro House Mix 2025 | The Best of Afro House 2025",
+            "thumbnail": "https://i.ytimg.com/vi/ALIZCO-5BIw/mqdefault.jpg",
+            "channelTitle": "Sol.",
+            "publishedAt": "12.9.2025",
+            "duration": "1:01:28"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "username": "Shon_h",
+    "playlists": [
+      {
+        "id": "pl_mjrhnkaeqjkipm",
+        "name": "mp3",
+        "createdAt": 1767032714102,
+        "videos": [
+          {
+            "videoId": "local_1767032719306",
+            "title": "2Pac feat. Dr. Dre - California love",
+            "thumbnail": "",
+            "duration": "MP3",
+            "isLocal": true,
+            "filePath": "/uploads/1767032719264-9513964-2Pac feat. Dr. Dre - California love.mp3",
+            "addedAt": 1767032719306
+          },
+          {
+            "videoId": "local_1767032797916",
+            "title": "3 Doors Down - Here Without You",
+            "thumbnail": "",
+            "duration": "MP3",
+            "isLocal": true,
+            "filePath": "/uploads/1767032797846-406428972-3 Doors Down - Here Without You.mp3",
+            "addedAt": 1767032797916
+          }
+        ]
+      },
+      {
+        "id": 1767032683012,
+        "name": "new",
+        "createdAt": "2025-12-29T18:24:43.012Z",
+        "videos": [
+          {
+            "videoId": "f9OSBmPZOoQ",
+            "title": "SUMMER AFRO HOUSE Sunset Mix (Adam Port, Avicii, The Weeknd, Coldplay, Diplo) - Summer Vibes Mix #41",
+            "thumbnail": "https://i.ytimg.com/vi/f9OSBmPZOoQ/mqdefault.jpg",
+            "channelTitle": "Afro King",
+            "publishedAt": "31.7.2025",
+            "duration": "2:21:01"
+          },
+          {
+            "videoId": "bWZocyszivk",
+            "title": "Afro House Mix 2025 | The Best of Afro House 2025 by OSOCITY",
+            "thumbnail": "https://i.ytimg.com/vi/bWZocyszivk/mqdefault.jpg",
+            "channelTitle": "OSOCITYNATION",
+            "publishedAt": "25.1.2025",
+            "duration": "1:01:31"
+          }
+        ]
+      },
+      {
+        "id": 1767032702525,
+        "name": "techno",
+        "createdAt": "2025-12-29T18:25:02.525Z",
+        "videos": [
+          {
+            "videoId": "-F2C20dHN8M",
+            "title": "TECHNO MIX 2026 💣 Remixes Of Popular Songs 💣 Only Techno Bangers",
+            "thumbnail": "https://i.ytimg.com/vi/-F2C20dHN8M/mqdefault.jpg",
+            "channelTitle": "BrutishHeavyMusic",
+            "publishedAt": "26.12.2025",
+            "duration": "1:25:39"
+          }
+        ]
+      }
+    ]
   }
 ]

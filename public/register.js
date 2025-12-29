@@ -1,4 +1,3 @@
-// public/register.js (החלף את הקיים)
 
 function showAlert(message, type = "danger") {
     const box = document.getElementById("alertBox");
